@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DewDrop Global — Premium Indian Agro Ingredients</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark: #1e3d2f;
+    --green-mid: #2d6a4f;
+    --green-accent: #3a7d44;
+    --green-light: #e8f0eb;
+    --cream: #f7f5f0;
+    --warm-white: #fdfcfa;
+    --text-dark: #1a1a1a;
+    --text-muted: #6b7280;
+    --gold: #c9963a;
+    --border: #e5e7e0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(253,252,250,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--green-accent); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-accent); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--green-dark); transition: 0.3s; }
+
+  /* ── HERO ── */
+  #home {
+    position: relative;
+    height: 100vh; min-height: 600px;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-slides { position: absolute; inset: 0; }
+  .hero-slide {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0; transition: opacity 1.2s ease;
+  }
+  .hero-slide.active { opacity: 1; }
+  .hero-slide::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+  }
+  .slide-1 { background-image: url('https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=1600&q=80'); }
+  .slide-2 { background-image: url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1600&q=80'); }
+  .slide-3 { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'); }
+  .slide-4 { background-image: url('https://images.unsplash.com/photo-1612197527762-8cfb4b38c6e5?w=1600&q=80'); }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 5%;
+    max-width: 780px;
+    animation: fadeUp 1s ease forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(30px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  .hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.88);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green-dark);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border: none; border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.25s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--green-accent); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border: 2px solid rgba(255,255,255,0.75);
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.25s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+  .hero-dots {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; gap: 10px;
+  }
+  .dot {
+    width: 28px; height: 4px; border-radius: 2px;
+    background: rgba(255,255,255,0.4); cursor: pointer;
+    transition: background 0.3s, width 0.3s;
+  }
+  .dot.active { background: #fff; width: 44px; }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 90px 5%; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--green-accent);
+    display: block; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1.2;
+  }
+  .section-center { text-align: center; }
+  .section-center .section-title { margin: 0 auto 1rem; }
+
+  /* ── PRODUCTS ── */
+  #products { background: var(--warm-white); }
+  .category-section { margin-bottom: 3.5rem; }
+  .category-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    padding-left: 1rem;
+    border-left: 4px solid var(--green-accent);
+    margin-bottom: 1.8rem;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .product-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); transform: translateY(-3px); }
+  .product-img {
+    width: 100%; height: 210px;
+    object-fit: cover;
+    background: var(--green-light);
+    display: block;
+  }
+  .product-img-placeholder {
+    width: 100%; height: 210px;
+    background: linear-gradient(135deg, var(--green-light), #dce8d8);
+  }
+  .product-body { padding: 1.2rem 1.2rem 0.6rem; }
+  .product-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--green-dark); margin-bottom: 0.3rem;
+  }
+  .product-body p {
+    font-size: 0.85rem; color: var(--text-muted);
+    font-weight: 400; margin-bottom: 1rem;
+  }
+  .btn-learn {
+    display: block; width: 100%;
+    text-align: center;
+    padding: 0.65rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--green-dark);
+    text-decoration: none;
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    margin-bottom: 1rem;
+  }
+  .btn-learn:hover { background: var(--green-light); border-color: var(--green-accent); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--cream); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-img {
+    width: 100%; border-radius: 14px;
+    height: 440px; object-fit: cover;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    display: block;
+  }
+  .about-content .section-tag { margin-bottom: 0.5rem; }
+  .about-content .section-title { margin-bottom: 1.5rem; }
+  .about-content p {
+    font-size: 0.97rem; color: #4b5563;
+    line-height: 1.8; margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+  .stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
+  .stat-item .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--green-dark);
+  }
+  .stat-item .stat-label {
+    font-size: 0.82rem; color: var(--text-muted);
+    font-weight: 400; margin-top: 0.2rem;
+  }
+
+  /* ── WHY US (BENEFITS) ── */
+  #why-us { background: var(--warm-white); }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.8rem;
+    margin-top: 3rem;
+  }
+  .benefit-card {
+    text-align: center;
+    padding: 0.5rem;
+  }
+  .benefit-img {
+    width: 100%; height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  .benefit-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--green-dark); margin-bottom: 0.6rem;
+  }
+  .benefit-card p {
+    font-size: 0.87rem; color: var(--text-muted);
+    line-height: 1.7; font-weight: 300;
+  }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--cream); }
+  .gallery-header {
+    display: flex; align-items: flex-end;
+    justify-content: space-between; margin-bottom: 2rem;
+  }
+  .gallery-nav { display: flex; gap: 0.75rem; }
+  .gallery-btn {
+    width: 44px; height: 44px;
+    border: 1.5px solid var(--border);
+    background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.1rem; color: var(--green-dark);
+    transition: all 0.2s;
+  }
+  .gallery-btn:hover { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+  .gallery-track-wrap { overflow: hidden; border-radius: 12px; }
+  .gallery-track {
+    display: flex; gap: 1.5rem;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item { flex: 0 0 340px; }
+  .gallery-item img {
+    width: 100%; height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+  }
+  .gallery-caption {
+    font-size: 0.84rem; color: var(--text-muted);
+    margin-top: 0.75rem; font-weight: 300;
+  }
+
+  /* ── MARKETS ── */
+  #markets { background: var(--warm-white); text-align: center; }
+  .markets-sub {
+    font-size: 0.97rem; color: var(--text-muted);
+    max-width: 560px; margin: 1rem auto 3rem;
+    line-height: 1.7; font-weight: 300;
+  }
+  .world-map-box {
+    background: var(--green-light);
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    display: flex; align-items: center; justify-content: center;
+    max-width: 900px; margin: 0 auto;
+  }
+  .world-map-box svg { width: 100%; max-width: 680px; height: auto; opacity: 0.45; }
+  .market-tags {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .market-tag {
+    background: var(--green-light);
+    color: var(--green-dark);
+    padding: 0.5rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.88rem; font-weight: 500;
+    border: 1px solid #c8dac9;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1600&q=60') center/cover no-repeat;
+    position: relative;
+  }
+  #contact::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(247,245,240,0.94);
+  }
+  .contact-inner { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+  .contact-inner .section-tag,
+  .contact-inner .section-title { text-align: center; display: block; }
+  .contact-sub {
+    text-align: center; font-size: 0.97rem;
+    color: var(--text-muted); margin: 0.75rem auto 2.5rem;
+    max-width: 500px; line-height: 1.7; font-weight: 300;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--text-dark);
+  }
+  .required-star { color: var(--green-accent); }
+  .form-group input, .form-group textarea {
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--green-accent); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: #b0b8bf; }
+  .form-full { margin-bottom: 1.2rem; }
+  .btn-submit {
+    display: block; width: 100%;
+    padding: 1rem;
+    background: var(--green-dark);
+    color: #fff;
+    border: none; border-radius: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.03em;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .btn-submit:hover { background: var(--green-accent); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.75);
+    padding: 4rem 5% 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: #fff; margin-bottom: 0.8rem;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-desc {
+    font-size: 0.87rem; line-height: 1.7;
+    font-weight: 300; color: rgba(255,255,255,0.6);
+  }
+  .footer-col h4 {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul li a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; font-size: 0.9rem; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: #fff; }
+  .footer-col ul li { font-size: 0.9rem; font-weight: 400; color: rgba(255,255,255,0.7); }
+  .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin-bottom: 1.5rem; }
+  .footer-bottom {
+    text-align: center; font-size: 0.82rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-img { height: 300px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--warm-white); padding: 1.5rem 5%; border-bottom: 1px solid var(--border); gap: 1.2rem; }
+    .hamburger { display: flex; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .stats-row { flex-wrap: wrap; gap: 1.5rem; }
+    .gallery-item { flex: 0 0 280px; }
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+    background: var(--green-dark); color: #fff;
+    padding: 1rem 1.5rem; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.4s ease;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="logo">DewDrop <span>Global</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-slides">
+    <div class="hero-slide slide-1 active"></div>
+    <div class="hero-slide slide-2"></div>
+    <div class="hero-slide slide-3"></div>
+    <div class="hero-slide slide-4"></div>
+  </div>
+  <div class="hero-content">
+    <h1>Premium Indian Agro<br>Ingredients — Trusted<br>Worldwide</h1>
+    <p>Spices, botanicals &amp; extracts sourced sustainably from India.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">View Products</a>
+      <a href="#contact" class="btn-outline">Get a Quote</a>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+    <div class="dot" onclick="goSlide(3)"></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div style="text-align:center; margin-bottom:3rem;">
+    <span class="section-tag">OUR RANGE</span>
+    <h2 class="section-title">Premium Product Categories</h2>
+  </div>
+
+  <!-- Spices -->
+  <div class="category-section">
+    <div class="category-label">Spices</div>
+    <div class="products-grid">
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&q=80" alt="Turmeric" loading="lazy">
+        <div class="product-body">
+          <h3>Turmeric</h3>
+          <p>High Curcumin Turmeric Powder</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&q=80" alt="Cumin" loading="lazy">
+        <div class="product-body">
+          <h3>Cumin</h3>
+          <p>Aromatic Whole &amp; Ground Cumin</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Chilli" loading="lazy">
+        <div class="product-body">
+          <h3>Chilli</h3>
+          <p>Vibrant Red Chilli Powder</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1612197527762-8cfb4b38c6e5?w=600&q=80" alt="Black Pepper" loading="lazy">
+        <div class="product-body">
+          <h3>Black Pepper</h3>
+          <p>Premium Malabar Peppercorns</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Herbal Powders -->
+  <div class="category-section">
+    <div class="category-label">Herbal Powders</div>
+    <div class="products-grid">
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1582551480903-efc9b4f7f5a3?w=600&q=80" alt="Moringa" loading="lazy">
+        <div class="product-body">
+          <h3>Moringa</h3>
+          <p>Nutrient-Dense Moringa Leaf Powder</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?w=600&q=80" alt="Ashwagandha" loading="lazy">
+        <div class="product-body">
+          <h3>Ashwagandha</h3>
+          <p>Adaptogenic Root Powder</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1617688571-7e4f08ef4f4a?w=600&q=80" alt="Amla" loading="lazy">
+        <div class="product-body">
+          <h3>Amla</h3>
+          <p>Vitamin C-Rich Indian Gooseberry</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Extracts & Sweeteners -->
+  <div class="category-section">
+    <div class="category-label">Extracts &amp; Sweeteners</div>
+    <div class="products-grid">
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80" alt="Curcumin Extract" loading="lazy">
+        <div class="product-body">
+          <h3>Curcumin Extract</h3>
+          <p>95% Standardized Curcuminoids</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Monk Fruit Extract" loading="lazy">
+        <div class="product-body">
+          <h3>Monk Fruit Extract</h3>
+          <p>Natural Zero-Calorie Sweetener</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Essential Oils & Botanicals -->
+  <div class="category-section">
+    <div class="category-label">Essential Oils &amp; Botanicals</div>
+    <div class="products-grid">
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80" alt="Essential Oils" loading="lazy">
+        <div class="product-body">
+          <h3>Essential Oils</h3>
+          <p>Steam-Distilled Pure Botanicals</p>
+          <a href="#contact" class="btn-learn">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-content">
+      <span class="section-tag">ABOUT DEWDROP GLOBAL</span>
+      <h2 class="section-title">Sustainably Sourced,<br>Globally Trusted</h2>
+      <p>At DewDrop Global, we partner directly with Indian farmers and cooperatives to source the finest agro products. From the turmeric fields of Erode to the moringa plantations of Tamil Nadu, every ingredient is carefully selected for purity, potency, and consistency.</p>
+      <p>Our state-of-the-art processing facilities maintain strict quality control at every stage — from harvest to packaging. We hold internationally recognized certifications including FSSAI, ISO 22000, and organic credentials, ensuring our products meet the highest global standards.</p>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">30+</div>
+          <div class="stat-label">Countries Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Product SKUs</div>
+        </div>
+      </div>
+    </div>
+    <img class="about-img" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80" alt="Indian farmers harvesting turmeric" loading="lazy">
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div style="text-align:center;">
+    <span class="section-tag">WHY CHOOSE US</span>
+    <h2 class="section-title">Built on Trust &amp; Quality</h2>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=80" alt="Certified Quality" loading="lazy">
+      <h3>Certified Quality</h3>
+      <p>ISO, FSSAI &amp; HACCP certified processes ensuring premium grade at every stage.</p>
+    </div>
+    <div class="benefit-card">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80" alt="Global Shipping" loading="lazy">
+      <h3>Global Shipping</h3>
+      <p>Reliable logistics to 30+ countries with full export documentation support.</p>
+    </div>
+    <div class="benefit-card">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?w=600&q=80" alt="Organic & Safe" loading="lazy">
+      <h3>Organic &amp; Safe</h3>
+      <p>USDA Organic and EU-compliant sourcing with complete traceability.</p>
+    </div>
+    <div class="benefit-card">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80" alt="Consistent Supply" loading="lazy">
+      <h3>Consistent Supply</h3>
+      <p>Year-round availability backed by strategic warehousing and inventory management.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header">
+    <div>
+      <span class="section-tag">GALLERY</span>
+      <h2 class="section-title">From Farm to Export</h2>
+    </div>
+    <div class="gallery-nav">
+      <button class="gallery-btn" onclick="scrollGallery(-1)" aria-label="Previous">&#8592;</button>
+      <button class="gallery-btn" onclick="scrollGallery(1)" aria-label="Next">&#8594;</button>
+    </div>
+  </div>
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=700&q=80" alt="Spice palette">
+        <p class="gallery-caption">Vibrant spice palette — turmeric, chilli, cumin &amp; more</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1533745848184-3db07256e163?w=700&q=80" alt="Processing facility">
+        <p class="gallery-caption">Modern processing facility for consistent quality</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1607897441350-81a0c471bcf8?w=700&q=80" alt="Export packaging">
+        <p class="gallery-caption">Export-ready packaged samples</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=700&q=80" alt="Turmeric harvest">
+        <p class="gallery-caption">Fine turmeric freshly ground from Erode farms</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1582551480903-efc9b4f7f5a3?w=700&q=80" alt="Moringa leaves">
+        <p class="gallery-caption">Freshly harvested moringa leaves</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section id="markets">
+  <span class="section-tag section-center">GLOBAL REACH</span>
+  <h2 class="section-title" style="text-align:center; margin-bottom:0.5rem;">Supplying to USA, EU,<br>Middle East &amp; Asia</h2>
+  <p class="markets-sub">Our products reach buyers across 30+ countries, with reliable logistics and full export compliance documentation.</p>
+
+  <div class="world-map-box">
+    <!-- SVG World Map Outline (simplified) -->
+    <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2d6a4f" stroke-width="1.2">
+      <!-- Americas -->
+      <path d="M180,80 Q165,90 160,110 Q155,140 170,160 Q180,185 165,200 Q150,215 155,235 Q165,260 155,280 Q145,300 150,320 Q160,345 155,365 Q148,385 155,400" />
+      <path d="M180,80 Q200,75 215,90 Q230,105 225,125 Q218,145 225,165 Q235,185 225,205 Q215,225 220,250 Q230,270 220,290 Q210,310 215,330 Q220,355 210,375 Q200,395 205,415" />
+      <path d="M240,120 Q260,110 275,125 Q290,140 285,160 Q278,180 285,200 Q295,220 290,240 Q280,260 285,280" />
+      <!-- Europe -->
+      <path d="M460,60 Q480,55 495,70 Q510,85 505,105 Q498,125 505,145 Q515,165 510,185" />
+      <path d="M480,60 Q500,65 515,80 Q530,95 525,115 Q518,135 525,155 Q535,175 530,195" />
+      <!-- Africa -->
+      <path d="M480,200 Q490,210 495,230 Q500,250 495,270 Q488,295 495,315 Q505,340 500,365 Q493,390 500,410 Q508,430 500,450" />
+      <path d="M530,200 Q540,215 545,235 Q550,255 545,275 Q538,300 545,320 Q555,345 548,365 Q540,385 545,405" />
+      <!-- Asia -->
+      <path d="M600,70 Q625,65 645,80 Q665,95 660,120 Q652,145 660,165 Q672,185 665,205 Q655,225 660,245" />
+      <path d="M660,80 Q685,90 700,110 Q715,130 708,155 Q700,175 708,195 Q720,215 712,235 Q702,255 708,275" />
+      <path d="M710,90 Q730,100 745,120 Q760,140 752,165 Q744,185 752,205 Q764,225 755,250" />
+      <!-- Australia -->
+      <path d="M760,310 Q790,305 810,320 Q830,335 825,360 Q818,385 825,405 Q835,425 825,445" />
+      <path d="M825,320 Q845,330 860,350 Q875,370 868,395 Q860,415 865,435" />
+    </svg>
+  </div>
+
+  <div class="market-tags">
+    <span class="market-tag">🇺🇸 United States</span>
+    <span class="market-tag">🇬🇧 United Kingdom</span>
+    <span class="market-tag">🇩🇪 Germany</span>
+    <span class="market-tag">🇫🇷 France</span>
+    <span class="market-tag">🇦🇪 UAE</span>
+    <span class="market-tag">🇸🇦 Saudi Arabia</span>
+    <span class="market-tag">🇯🇵 Japan</span>
+    <span class="market-tag">🇦🇺 Australia</span>
+    <span class="market-tag">🇨🇦 Canada</span>
+    <span class="market-tag">🇸🇬 Singapore</span>
+    <span class="market-tag">+ 20 more</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <span class="section-tag">GET IN TOUCH</span>
+    <h2 class="section-title" style="text-align:center;">Submit Your Inquiry</h2>
+    <p class="contact-sub">Interested in our products? Fill out the form and our export team will respond within 24 hours.</p>
+
+    <div id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="required-star">*</span></label>
+          <input type="text" id="fname" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <input type="text" id="company" placeholder="Company name">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Country <span class="required-star">*</span></label>
+          <input type="text" id="country" placeholder="Your country">
+        </div>
+        <div class="form-group">
+          <label>Product Interest <span class="required-star">*</span></label>
+          <input type="text" id="product" placeholder="e.g., Turmeric Powder, Moringa">
+        </div>
+      </div>
+      <div class="form-group form-full">
+        <label>Message</label>
+        <textarea id="message" rows="5" placeholder="Tell us about your requirements..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="submitForm()">Submit Inquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">DewDrop <span>Global</span></div>
+      <p class="footer-desc">Premium Indian agro ingredients exported worldwide. Spices, herbal powders, extracts &amp; botanicals.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#products">Spices</a></li>
+        <li><a href="#products">Herbal Powders</a></li>
+        <li><a href="#products">Extracts &amp; Sweeteners</a></li>
+        <li><a href="#products">Essential Oils</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#why-us">Why Choose Us</a></li>
+        <li><a href="#markets">Export Markets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>info@dewdropglobal.com</li>
+        <li>+91 98765 43210</li>
+        <li>India</li>
+      </ul>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <p class="footer-bottom">© 2026 DewDrop Global. All rights reserved.</p>
+</footer>
+
+<div class="toast" id="toast">✓ Inquiry submitted! We'll respond within 24 hours.</div>
+
+<script>
+  // Navbar hamburger
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // Hero slider
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.dot');
+
+  function goSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = n;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+
+  setInterval(() => {
+    goSlide((currentSlide + 1) % slides.length);
+  }, 4500);
+
+  // Gallery scroll
+  let galleryPos = 0;
+  function scrollGallery(dir) {
+    const track = document.getElementById('galleryTrack');
+    const itemWidth = 340 + 24; // width + gap
+    const maxPos = (track.children.length - 3) * itemWidth;
+    galleryPos = Math.max(0, Math.min(maxPos, galleryPos + dir * itemWidth));
+    track.style.transform = `translateX(-${galleryPos}px)`;
+  }
+
+  // Contact form
+  function submitForm() {
+    const name = document.getElementById('fname').value.trim();
+    const country = document.getElementById('country').value.trim();
+    const product = document.getElementById('product').value.trim();
+    if (!name || !country || !product) {
+      alert('Please fill in all required fields (Name, Country, Product Interest).');
+      return;
+    }
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+    document.getElementById('fname').value = '';
+    document.getElementById('company').value = '';
+    document.getElementById('country').value = '';
+    document.getElementById('product').value = '';
+    document.getElementById('message').value = '';
+  }
+
+  // Scroll-based navbar shadow
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
+  });
+
+  // Smooth close nav on link click (mobile)
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
